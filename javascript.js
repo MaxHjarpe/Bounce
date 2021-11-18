@@ -5,7 +5,6 @@ const ctx = canvas.getContext('2d');
 
 const width = canvas.width = window.innerWidth;
 const height = canvas.height = window.innerHeight;
-
 // function to generate random number
 
 function random(min, max) {
@@ -21,8 +20,6 @@ function Ball(x, y, velX, velY, color, size) {
     this.color = color;
     this.size = size;
 }
-
-
 
 
 Ball.prototype.draw = function() {
@@ -56,15 +53,15 @@ Ball.prototype.update = function() {
 
 let balls = [];
 
-while (balls.length < 10) {
+while (balls.length < 20) {
   let size = random(10,20);
   let ball = new Ball(
     // ball position always drawn at least one ball width
     // away from the edge of the canvas, to avoid drawing errors
     random(0 + size,width - size),
     random(0 + size,height - size),
-    random(1,1),
-    random(1,1),
+    random(1,10),
+    random(1,10),
     'rgb(' + random(0,255) + ',' + random(0,255) + ',' + random(0,255) +')',
     size
   );
@@ -100,6 +97,32 @@ Ball.prototype.collisionDetect = function() {
     }
 }
 
+function remove() {
+  balls.pop();
+}
+
+function removeAll() {
+  for(let i = balls.length; i > 0; i--) {
+    balls.pop(i);
+  }
+}
+
+function add(largest) {
+  for(let i = 0; i<largest; i++) {
+    let size = random(10,20);
+    let ball = new Ball(
+      // ball position always drawn at least one ball width
+      // away from the edge of the canvas, to avoid drawing errors
+      random(0 + size,width - size),
+      random(0 + size,height - size),
+      random(1,10),
+      random(1,10),
+      'rgb(' + random(0,255) + ',' + random(0,255) + ',' + random(0,255) +')',
+      size
+    );
+        balls.push(ball);
+      }
+}
 
 
 loop();
