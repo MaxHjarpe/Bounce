@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html lang="sv">
-  <head>
-    <meta charset="utf-8">
-    <title>Bouncing balls</title>
-    <link rel="stylesheet" href="style.css">
-  </head>
 
-  <body>
-    <h1>STUDS</h1>
-    <button class="btn" id="removeBall" onclick="remove()">Remove Ball</button>
-    <button class="btn" id="removeAll" onclick="removeAll()">Remove All</button>
-    <button class="btn" id="addBall" onclick="add()">Add Ball</button>
-    <button class="btn" id="addBallFive" onclick="add(5)">Add 5 Balls</button>
-    <canvas>
-      
-    </canvas>
+<head>
+  <meta charset="utf-8">
+  <title>Bouncing balls</title>
+  <link rel="stylesheet" href="style.css">
+</head>
 
-    <script src="javascript.js"></script>
-  </body>
+<body>
+  <h1>STUDS</h1>
+  <button class="removeBtn" name="RemoveAllBalls" onclick="remove(balls.length)">Remove all balls</button>
+  <button class="removeBtn" name="RemoveOneBall" onclick="remove(1)">Remove a ball</button> 
+  <button class="addBtn" name="AddOneBall" onclick="add(1)">Add a ball</button>
+  <button class="addBtn" name="AddFiveBalls" onclick="add(5)">Add 5 balls</button>
+  <!-- <button class="addBtn" name="StartOrStop" id="startBtn">Start/Stop</button> -->
+  <canvas>
+
+  </canvas>
+
+  <script src="javascript.js"></script>
+</body>
+
 </html>

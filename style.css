@@ -25,7 +25,7 @@ html, body {
     text-shadow: 0 0 17px rgb(255, 0, 0);
   }
 
-  .btn {
+  .addBtn {
     float: left;
     background-color: #000000;
     border: none;
@@ -39,14 +39,26 @@ html, body {
     text-shadow: 0 0 17px rgb(255, 0, 0);
   }
   
-  .btn:hover {
+  .addBtn:hover {
     opacity: 1;
-
   }
 
-  #addBall {
-    display: flex;
-    justify-content: right;
+  .removeBtn {
+    float: right;
+    background-color: #000000;
+    border: none;
+    color: rgb(150, 9, 9);
+    padding: 16px 32px;
+    text-align: center;
+    font-size: 25px;
+    margin: 4px 2px;
+    opacity: 0.6;
+    transition: 0.3s;
+    text-shadow: 0 0 17px rgb(255, 0, 0);
+  }
+  
+  .removeBtn:hover {
+    opacity: 1;
   }
 
   canvas {
