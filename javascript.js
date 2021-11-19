@@ -4,7 +4,7 @@ const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
 
 const width = canvas.width = window.innerWidth;
-const height = canvas.height = window.innerHeight;
+const height = canvas.height = window.innerHeight -98;
 // function to generate random number
 
 function random(min, max) {
@@ -60,8 +60,8 @@ while (balls.length < 20) {
     // away from the edge of the canvas, to avoid drawing errors
     random(0 + size, width - size),
     random(0 + size, height - size),
-    random(1, 10),
-    random(1, 10),
+    random(1, 1),
+    random(1, 1),
     'rgb(' + random(0, 255) + ',' + random(0, 255) + ',' + random(0, 255) + ')',
     size
   );
@@ -110,8 +110,8 @@ function add(largest) {
       // away from the edge of the canvas, to avoid drawing errors
       random(0 + size, width - size),
       random(0 + size, height - size),
-      random(1, 10),
-      random(1, 10),
+      random(1, 1),
+      random(1, 1),
       'rgb(' + random(0, 255) + ',' + random(0, 255) + ',' + random(0, 255) + ')',
       size
     );
