@@ -60,7 +60,3 @@ html, body {
   .removeBtn:hover {
     opacity: 1;
   }
-
-  canvas {
-    height: 100vh - 100px;
-  }
