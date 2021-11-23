@@ -21,7 +21,6 @@ function Ball(x, y, velX, velY, color, size) {
   this.size = size;
 }
 
-
 Ball.prototype.draw = function () {
   ctx.beginPath();
   ctx.fillStyle = this.color;
@@ -52,8 +51,6 @@ Ball.prototype.update = function () {
 }
 
 let balls = [];
-let nob = document.querySelector("#ptag");
-
 
 while (balls.length < 10) {
   let size = random(10, 20);
@@ -65,23 +62,20 @@ while (balls.length < 10) {
     random(1, 1),
     random(1, 1),
     'rgb(' + random(0, 255) + ',' + random(0, 255) + ',' + random(0, 255) + ')',
-    size
-  );
-  nob.innerText
+    size);
   balls.push(ball);
 }
-
 
 function loop() {
   ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
   ctx.fillRect(0, 0, width, height);
+  document.querySelector("#ptag").innerText = "Active balls: " + balls.length;
 
   for (let i = 0; i < balls.length; i++) {
     balls[i].draw();
     balls[i].update();
     balls[i].collisionDetect();
   }
-
   requestAnimationFrame(loop);
 }
 
@@ -116,12 +110,10 @@ function add(largest) {
       random(1, 1),
       random(1, 1),
       'rgb(' + random(0, 255) + ',' + random(0, 255) + ',' + random(0, 255) + ')',
-      size
-    );
+      size);
     balls.push(ball);
   }
 }
-
 
 loop();
 
