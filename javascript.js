@@ -4,10 +4,8 @@ const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
 
 const width = canvas.width = window.innerWidth;
-const height = canvas.height = window.innerHeight - 98;
+const height = canvas.height = window.innerHeight - 67;
 // function to generate random number
-
-
 
 function random(min, max) {
   const num = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -71,14 +69,8 @@ Ball.prototype.update = function () {
 let balls = [];
 let obstacles = [];
 
-// document.addEventListener("click", () => {
-//   let mousex = event.clientX; // Gets Mouse X
-//   let mousey = event.clientY; // Gets Mouse Y
-//   console.log([mousex, mousey]); // Prints data
-// });
-
-
-
+let mousex;
+let mousey;
 
 while (balls.length < random(1, 5)) {
   let size = random(10, 20);
@@ -87,17 +79,22 @@ while (balls.length < random(1, 5)) {
     // away from the edge of the canvas, to avoid drawing errors
     random(0 + size, width - size),
     random(0 + size, height - size),
-    random(3, 5), //SPEED
-    random(3, 5), //SPEED
+    random(3, 5),
+    random(3, 5),
     'rgb(' + random(0, 255) + ',' + random(0, 255) + ',' + random(0, 255) + ')',
     size);
   balls.push(ball);
 
-  let obstacle = new Obstacle(
-    random(0 + size, width - size),
-    random(0 + size, height - size),
-    'rgb(' + random(0, 255) + ',' + random(0, 255) + ',' + random(0, 255) + ')', 50, 100);
-  obstacles.push(obstacle);
+  canvas.addEventListener("click", () => {
+    mousex = event.clientX; // Gets Mouse X
+    mousey = event.clientY; // Gets Mouse Y
+    let obstacle = new Obstacle(
+      mousex - 20, // x-position, ganska fult med "-20" men vet inte hur jag ska lösa än
+      mousey - 130, // y-position, ganska fult med "-130" men vet inte hur jag ska lösa än
+      'rgb(' + random(0, 255) + ',' + random(0, 255) + ',' + random(0, 255) + ')', 50, 100);
+    obstacles.push(obstacle);
+  });
+
 }
 
 for (let i = 0; i < obstacles.length; i++) {
@@ -118,6 +115,10 @@ function loop() {
   for (let i = 0; i < obstacles.length; i++) {
     obstacles[i].draw();
   }
+  ctx.font = "30px Arial";
+  ctx.fillStyle = "rgb(150, 9, 9)";
+  ctx.fillText("Press anywhere to add an obstacle", canvas.width / 2, canvas.height / 2);
+  ctx.textAlign = "center";
   requestAnimationFrame(loop);
 }
 
@@ -174,6 +175,12 @@ Ball.prototype.collisionDetect = function () {
 function remove(largest) {
   for (let i = largest; i > 0; i--) {
     balls.pop(i);
+  }
+}
+
+function removeObstacles(largest) {
+  for (let i = largest; i > 0; i--) {
+    obstacles.pop(i);
   }
 }
 
