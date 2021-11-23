@@ -4,7 +4,7 @@ const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
 
 const width = canvas.width = window.innerWidth;
-const height = canvas.height = window.innerHeight -98;
+const height = canvas.height = window.innerHeight - 98;
 // function to generate random number
 
 function random(min, max) {
@@ -52,8 +52,10 @@ Ball.prototype.update = function () {
 }
 
 let balls = [];
+let nob = document.querySelector("#ptag");
 
-while (balls.length < 20) {
+
+while (balls.length < 10) {
   let size = random(10, 20);
   let ball = new Ball(
     // ball position always drawn at least one ball width
@@ -65,9 +67,10 @@ while (balls.length < 20) {
     'rgb(' + random(0, 255) + ',' + random(0, 255) + ',' + random(0, 255) + ')',
     size
   );
-
+  nob.innerText
   balls.push(ball);
 }
+
 
 function loop() {
   ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
@@ -120,8 +123,6 @@ function add(largest) {
 }
 
 
-// let buttonElement = document.getElementById("#startBtn");
-// buttonElement.addEventListener("click", loop());
 loop();
 
 

@@ -60,3 +60,7 @@ html, body {
   .removeBtn:hover {
     opacity: 1;
   }
+
+  .container {
+    border-bottom: rgb(150, 9, 9);
+  }
