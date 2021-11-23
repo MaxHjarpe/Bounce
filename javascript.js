@@ -7,6 +7,8 @@ const width = canvas.width = window.innerWidth;
 const height = canvas.height = window.innerHeight - 98;
 // function to generate random number
 
+
+
 function random(min, max) {
   const num = Math.floor(Math.random() * (max - min + 1)) + min;
   return num;
@@ -27,6 +29,22 @@ Ball.prototype.draw = function () {
   ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
   ctx.fill();
 }
+
+function Obstacle(x, y, color, width, height) {
+  this.x = x;
+  this.y = y;
+  this.color = color;
+  this.width = width;
+  this.height = height;
+}
+
+Obstacle.prototype.draw = function () {
+  ctx.beginPath();
+  ctx.fillStyle = this.color;
+  ctx.fillRect(this.x, this.y, this.width, this.height);
+}
+
+
 
 Ball.prototype.update = function () {
 
@@ -51,19 +69,39 @@ Ball.prototype.update = function () {
 }
 
 let balls = [];
+let obstacles = [];
 
-while (balls.length < 10) {
+// document.addEventListener("click", () => {
+//   let mousex = event.clientX; // Gets Mouse X
+//   let mousey = event.clientY; // Gets Mouse Y
+//   console.log([mousex, mousey]); // Prints data
+// });
+
+
+
+
+while (balls.length < random(1, 5)) {
   let size = random(10, 20);
   let ball = new Ball(
     // ball position always drawn at least one ball width
     // away from the edge of the canvas, to avoid drawing errors
     random(0 + size, width - size),
     random(0 + size, height - size),
-    random(1, 1),
-    random(1, 1),
+    random(3, 5), //SPEED
+    random(3, 5), //SPEED
     'rgb(' + random(0, 255) + ',' + random(0, 255) + ',' + random(0, 255) + ')',
     size);
   balls.push(ball);
+
+  let obstacle = new Obstacle(
+    random(0 + size, width - size),
+    random(0 + size, height - size),
+    'rgb(' + random(0, 255) + ',' + random(0, 255) + ',' + random(0, 255) + ')', 50, 100);
+  obstacles.push(obstacle);
+}
+
+for (let i = 0; i < obstacles.length; i++) {
+  obstacles[i].draw();
 }
 
 function loop() {
@@ -76,18 +114,58 @@ function loop() {
     balls[i].update();
     balls[i].collisionDetect();
   }
+
+  for (let i = 0; i < obstacles.length; i++) {
+    obstacles[i].draw();
+  }
   requestAnimationFrame(loop);
 }
 
 Ball.prototype.collisionDetect = function () {
-  for (let j = 0; j < balls.length; j++) {
-    if (!(this === balls[j])) {
-      const dx = this.x - balls[j].x;
-      const dy = this.y - balls[j].y;
-      const distance = Math.sqrt(dx * dx + dy * dy);
+  for (var i = 0; i < obstacles.length; i++) {
+    var b = obstacles[i];
+    if (
+      (this.x + this.size) > b.x && //Träff vänster?
+      (this.x - this.size) < b.x + b.width &&//Träff höger?
+      (this.y + this.size) > b.y && //Träff under?
+      (this.y - this.size) < b.y + b.height) { //Träff över?
 
-      if (distance < this.size + balls[j].size) {
-        balls[j].color = this.color = 'rgb(' + random(0, 255) + ',' + random(0, 255) + ',' + random(0, 255) + ')';
+      //Boll träffar från vänster
+
+      if (
+        (this.x + this.size) > b.x &&
+        (this.x + this.size) < b.x + 10 &&
+        this.velX > 0) {
+
+        this.velX = -this.velX;
+        this.x -= 3;
+
+      }
+      //Boll träffar från höger
+      if (
+        (this.x - this.size) < (b.x + b.height) &&
+        (this.x - this.size) > (b.x + b.width - 10) &&
+        this.velX < 0) {
+
+        this.velX = -this.velX;
+        this.x += 3;
+
+      }
+
+      //Boll träffar underifrån
+      if (
+        (this.y + this.size) > b.y + b.height &&
+        this.velY < 0) {
+        this.velY = -this.velY;
+        this.y += 3;
+
+      }
+      //Boll träffar ovanifrån
+      if ((this.y - this.size) < b.y &&
+        this.velY > 0) {
+        this.velY = -this.velY;
+        this.y -= 3;
+
       }
     }
   }
@@ -107,8 +185,8 @@ function add(largest) {
       // away from the edge of the canvas, to avoid drawing errors
       random(0 + size, width - size),
       random(0 + size, height - size),
-      random(1, 1),
-      random(1, 1),
+      random(3, 5),
+      random(3, 5),
       'rgb(' + random(0, 255) + ',' + random(0, 255) + ',' + random(0, 255) + ')',
       size);
     balls.push(ball);
@@ -116,6 +194,3 @@ function add(largest) {
 }
 
 loop();
-
-
-
