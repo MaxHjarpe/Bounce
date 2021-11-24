@@ -64,3 +64,7 @@ html, body {
   .container {
     border-bottom: rgb(150, 9, 9);
   }
+
+  .hidden {
+    display: none;
+  }

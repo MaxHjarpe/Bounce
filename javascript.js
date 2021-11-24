@@ -4,13 +4,17 @@ const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
 
 const width = canvas.width = window.innerWidth;
-const height = canvas.height = window.innerHeight - 67;
+const height = canvas.height = window.innerHeight - 95;
 // function to generate random number
 
 function random(min, max) {
   const num = Math.floor(Math.random() * (max - min + 1)) + min;
   return num;
 }
+
+// random = (min, max) => num = Math.floor(Math.random() * (max - min + 1)) + min;
+
+
 
 function Ball(x, y, velX, velY, color, size) {
   this.x = x;
@@ -28,20 +32,24 @@ Ball.prototype.draw = function () {
   ctx.fill();
 }
 
-function Obstacle(x, y, color, width, height) {
+function Obstacle(x, y, width, height) {
   this.x = x;
   this.y = y;
-  this.color = color;
+
   this.width = width;
   this.height = height;
 }
 
 Obstacle.prototype.draw = function () {
-  ctx.beginPath();
-  ctx.fillStyle = this.color;
-  ctx.fillRect(this.x, this.y, this.width, this.height);
+  const image = new Image(this.width, this.height);
+  image.src = "img/rickardgif.gif"; 
+  ctx.drawImage(image, this.x, this.y, this.width, this.height);
 }
 
+function playSong () {
+  let audio = new Audio('song/rickardsong' + random(1,11) + '.ogg');
+  audio.play();
+}
 
 
 Ball.prototype.update = function () {
@@ -75,28 +83,27 @@ let mousey;
 while (balls.length < random(1, 5)) {
   let size = random(10, 20);
   let ball = new Ball(
-    // ball position always drawn at least one ball width
-    // away from the edge of the canvas, to avoid drawing errors
     random(0 + size, width - size),
     random(0 + size, height - size),
     random(3, 5),
     random(3, 5),
     'rgb(' + random(0, 255) + ',' + random(0, 255) + ',' + random(0, 255) + ')',
     size);
-  balls.push(ball);
 
-  canvas.addEventListener("click", (e) => {
+  balls.push(ball);
+}
+
+canvas.addEventListener("mouseup", (e) => {
     mousex = e.clientX; // Gets Mouse X
-    mousey = e.clientY; // Gets Mouse Y
+    mousey = e.clientY; // Gets Mouse Y 
+    playSong();
     let obstacle = new Obstacle(
       mousex - 50, // x-position, ganska fult med "-20" men vet inte hur jag ska lösa än
       mousey - 130, // y-position, ganska fult med "-130" men vet inte hur jag ska lösa än
-      'rgb(' + random(0, 255) + ',' + random(0, 255) + ',' + random(0, 255) + ')', 50, 100);
+      50,
+      100);
     obstacles.push(obstacle);
   });
-
-}
-
 for (let i = 0; i < obstacles.length; i++) {
   obstacles[i].draw();
 }
@@ -119,6 +126,7 @@ function loop() {
   ctx.fillStyle = "rgb(150, 9, 9)";
   ctx.fillText("Press anywhere to add an obstacle", canvas.width / 2, canvas.height / 2);
   ctx.textAlign = "center";
+  
   requestAnimationFrame(loop);
 }
 
