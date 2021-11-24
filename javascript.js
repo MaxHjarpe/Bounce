@@ -7,12 +7,12 @@ const width = canvas.width = window.innerWidth;
 const height = canvas.height = window.innerHeight - 95;
 // function to generate random number
 
-function random(min, max) {
-  const num = Math.floor(Math.random() * (max - min + 1)) + min;
-  return num;
-}
+// function random(min, max) {
+//   const num = Math.floor(Math.random() * (max - min + 1)) + min;
+//   return num;
+// }
 
-// random = (min, max) => num = Math.floor(Math.random() * (max - min + 1)) + min;
+random = (min, max) => num = Math.floor(Math.random() * (max - min + 1)) + min;
 
 
 
@@ -35,7 +35,6 @@ Ball.prototype.draw = function () {
 function Obstacle(x, y, width, height) {
   this.x = x;
   this.y = y;
-
   this.width = width;
   this.height = height;
 }
