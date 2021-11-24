@@ -42,12 +42,17 @@ function Obstacle(x, y, width, height) {
 
 Obstacle.prototype.draw = function () {
   const image = new Image(this.width, this.height);
-  image.src = "img/rickardgif.gif"; 
+  image.src = "img/rickardgif.gif";
   ctx.drawImage(image, this.x, this.y, this.width, this.height);
 }
 
-function playSong () {
-  let audio = new Audio('song/rickardsong' + random(1,11) + '.ogg');
+function playSong() {
+  let audio = new Audio('song/rickardsong' + random(1, 11) + '.ogg');
+  audio.play();
+}
+
+function playBoing() {
+  let audio = new Audio('song/boing.mp3');
   audio.play();
 }
 
@@ -94,16 +99,16 @@ while (balls.length < random(1, 5)) {
 }
 
 canvas.addEventListener("mouseup", (e) => {
-    mousex = e.clientX; // Gets Mouse X
-    mousey = e.clientY; // Gets Mouse Y 
-    playSong();
-    let obstacle = new Obstacle(
-      mousex - 50, // x-position, ganska fult med "-20" men vet inte hur jag ska lösa än
-      mousey - 130, // y-position, ganska fult med "-130" men vet inte hur jag ska lösa än
-      50,
-      100);
-    obstacles.push(obstacle);
-  });
+  mousex = e.clientX; // Gets Mouse X
+  mousey = e.clientY; // Gets Mouse Y 
+  playSong();
+  let obstacle = new Obstacle(
+    mousex - 50, // x-position, ganska fult med "-20" men vet inte hur jag ska lösa än
+    mousey - 130, // y-position, ganska fult med "-130" men vet inte hur jag ska lösa än
+    50,
+    100);
+  obstacles.push(obstacle);
+});
 for (let i = 0; i < obstacles.length; i++) {
   obstacles[i].draw();
 }
@@ -122,11 +127,14 @@ function loop() {
   for (let i = 0; i < obstacles.length; i++) {
     obstacles[i].draw();
   }
-  ctx.font = "30px Arial";
-  ctx.fillStyle = "rgb(150, 9, 9)";
-  ctx.fillText("Press anywhere to add an obstacle", canvas.width / 2, canvas.height / 2);
-  ctx.textAlign = "center";
-  
+
+  if (obstacles.length == 0) {
+    ctx.font = "30px Arial";
+    ctx.fillStyle = "rgb(150, 9, 9)";
+    ctx.fillText("Press anywhere to add an obstacle", canvas.width / 2, canvas.height / 2);
+    ctx.textAlign = "center";
+  }
+
   requestAnimationFrame(loop);
 }
 
@@ -138,7 +146,8 @@ Ball.prototype.collisionDetect = function () {
       (this.x - this.size) < b.x + b.width &&//Träff höger?
       (this.y + this.size) > b.y && //Träff under?
       (this.y - this.size) < b.y + b.height) { //Träff över?
-
+      playBoing();
+      
       //Boll träffar från vänster
 
       if (
@@ -174,7 +183,7 @@ Ball.prototype.collisionDetect = function () {
         this.velY > 0) {
         this.velY = -this.velY;
         this.y -= 3;
-
+        
       }
     }
   }
