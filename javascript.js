@@ -47,13 +47,15 @@ Obstacle.prototype.draw = function () {
 
 function playSong() {
   let audio = new Audio('song/rickardsong' + random(1, 11) + '.ogg');
+  audio.volume = 0.1;
   audio.play();
 }
 
-function playBoing() {
-  let audio = new Audio('song/boing.mp3');
-  audio.play();
-}
+// function playBoing() {
+//   let audio = new Audio('song/boing.mp3');
+//   audio.volume = 0.1;
+//   audio.play();
+// }
 
 
 Ball.prototype.update = function () {
@@ -145,7 +147,7 @@ Ball.prototype.collisionDetect = function () {
       (this.x - this.size) < b.x + b.width &&//Träff höger?
       (this.y + this.size) > b.y && //Träff under?
       (this.y - this.size) < b.y + b.height) { //Träff över?
-      playBoing();
+      // playBoing();
       
       //Boll träffar från vänster
 
