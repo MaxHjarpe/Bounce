@@ -85,11 +85,11 @@ while (balls.length < random(1, 5)) {
     size);
   balls.push(ball);
 
-  canvas.addEventListener("click", () => {
-    mousex = event.clientX; // Gets Mouse X
-    mousey = event.clientY; // Gets Mouse Y
+  canvas.addEventListener("click", (e) => {
+    mousex = e.clientX; // Gets Mouse X
+    mousey = e.clientY; // Gets Mouse Y
     let obstacle = new Obstacle(
-      mousex - 20, // x-position, ganska fult med "-20" men vet inte hur jag ska lösa än
+      mousex - 50, // x-position, ganska fult med "-20" men vet inte hur jag ska lösa än
       mousey - 130, // y-position, ganska fult med "-130" men vet inte hur jag ska lösa än
       'rgb(' + random(0, 255) + ',' + random(0, 255) + ',' + random(0, 255) + ')', 50, 100);
     obstacles.push(obstacle);
