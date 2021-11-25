@@ -40,9 +40,15 @@ function Obstacle(x, y, width, height) {
 }
 
 Obstacle.prototype.draw = function () {
+  ctx.beginPath();
+  ctx.strokeStyle = "rgb(255,255,255)";
+  ctx.lineWidth = 3;
+  ctx.rect(this.x, this.y, this.width, this.height);
+  ctx.stroke();
   const image = new Image(this.width, this.height);
   image.src = "img/rickardgif.gif";
   ctx.drawImage(image, this.x, this.y, this.width, this.height);
+
 }
 
 function playSong() {
