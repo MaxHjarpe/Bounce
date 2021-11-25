@@ -195,7 +195,7 @@ function remove(largest) {
 }
 
 function removeObstacles() {
-  obstacles.splice(o, obstacles.length);
+  obstacles.splice(0, obstacles.length);
 }
 
 function add(largest) {
