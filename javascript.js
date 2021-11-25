@@ -191,15 +191,11 @@ Ball.prototype.collisionDetect = function () {
 }
 
 function remove(largest) {
-  for (let i = largest; i > 0; i--) {
-    balls.pop(i);
-  }
+  balls.splice(0, largest);
 }
 
-function removeObstacles(largest) {
-  for (let i = largest; i > 0; i--) {
-    obstacles.pop(i);
-  }
+function removeObstacles() {
+  obstacles.splice(o, obstacles.length);
 }
 
 function add(largest) {
