@@ -30,14 +30,23 @@ function Obstacle(x, y, width, height) {
 }
 
 Obstacle.prototype.draw = function () {
+  ctx.beginPath();
+  ctx.strokeStyle = "rgb(255,255,255)";
+  ctx.lineWidth = 3;
+  ctx.rect(this.x, this.y, this.width, this.height);
+  ctx.stroke();
   const image = new Image(this.width, this.height);
   image.src = "img/klipptrickard.png";
   ctx.drawImage(image, this.x, this.y, this.width, this.height);
+<<<<<<< HEAD
   ctx.beginPath();
   ctx.lineWidth = "3";
   ctx.strokeStyle = "gray";
   ctx.rect(this.x, this.y, this.width, this.height);
   ctx.stroke();
+=======
+
+>>>>>>> 2e0cd3c1f00a1fd3134b60b9feea046116352d55
 }
 
 function playSong() {
@@ -178,15 +187,11 @@ Ball.prototype.collisionDetect = function () {
 }
 
 function remove(largest) {
-  for (let i = largest; i > 0; i--) {
-    balls.pop(i);
-  }
+  balls.splice(0, largest);
 }
 
-function removeObstacles(largest) {
-  for (let i = largest; i > 0; i--) {
-    obstacles.pop(i);
-  }
+function removeObstacles() {
+  obstacles.splice(0, obstacles.length);
 }
 
 function add(largest) {
