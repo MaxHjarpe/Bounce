@@ -1,20 +1,10 @@
-// setup canvas
-
 const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
 
 const width = canvas.width = window.innerWidth;
-const height = canvas.height = window.innerHeight - 95;
-// function to generate random number
-
-// function random(min, max) {
-//   const num = Math.floor(Math.random() * (max - min + 1)) + min;
-//   return num;
-// }
+const height = canvas.height = window.innerHeight - 61;
 
 random = (min, max) => num = Math.floor(Math.random() * (max - min + 1)) + min;
-
-
 
 function Ball(x, y, velX, velY, color, size) {
   this.x = x;
@@ -41,22 +31,20 @@ function Obstacle(x, y, width, height) {
 
 Obstacle.prototype.draw = function () {
   const image = new Image(this.width, this.height);
-  image.src = "img/rickardgif.gif";
+  image.src = "img/klipptrickard.png";
   ctx.drawImage(image, this.x, this.y, this.width, this.height);
+  ctx.beginPath();
+  ctx.lineWidth = "3";
+  ctx.strokeStyle = "gray";
+  ctx.rect(this.x, this.y, this.width, this.height);
+  ctx.stroke();
 }
 
 function playSong() {
   let audio = new Audio('song/rickardsong' + random(1, 11) + '.ogg');
-  audio.volume = 0.1;
+  audio.volume = 0.01;
   audio.play();
 }
-
-// function playBoing() {
-//   let audio = new Audio('song/boing.mp3');
-//   audio.volume = 0.1;
-//   audio.play();
-// }
-
 
 Ball.prototype.update = function () {
 
@@ -104,8 +92,8 @@ canvas.addEventListener("mouseup", (e) => {
   mousey = e.clientY; // Gets Mouse Y 
   playSong();
   let obstacle = new Obstacle(
-    mousex - 50, // x-position, ganska fult med "-20" men vet inte hur jag ska lösa än
-    mousey - 130, // y-position, ganska fult med "-130" men vet inte hur jag ska lösa än
+    mousex - 25, // ugly, quick fix for placement of obstacle
+    mousey - 111, // ugly, quick fix for placement of obstacle
     50,
     100);
   obstacles.push(obstacle);
@@ -146,9 +134,8 @@ Ball.prototype.collisionDetect = function () {
       (this.x + this.size) > b.x && //Träff vänster?
       (this.x - this.size) < b.x + b.width &&//Träff höger?
       (this.y + this.size) > b.y && //Träff under?
-      (this.y - this.size) < b.y + b.height) { //Träff över?
-      // playBoing();
-      
+      (this.y - this.size) < b.y + b.height) { //Träff över?      
+
       //Boll träffar från vänster
 
       if (
@@ -184,7 +171,7 @@ Ball.prototype.collisionDetect = function () {
         this.velY > 0) {
         this.velY = -this.velY;
         this.y -= 3;
-        
+
       }
     }
   }
@@ -206,8 +193,6 @@ function add(largest) {
   for (let i = 0; i < largest; i++) {
     let size = random(10, 20);
     let ball = new Ball(
-      // ball position always drawn at least one ball width
-      // away from the edge of the canvas, to avoid drawing errors
       random(0 + size, width - size),
       random(0 + size, height - size),
       random(3, 5),
